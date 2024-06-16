@@ -1,14 +1,22 @@
 const fs = require('fs').promises;
-const fsSync = require('fs'); // for synchronous operations
+const fsSync = require('fs');
 const path = require('path');
 const process = require('process');
 const { authenticate } = require('@google-cloud/local-auth');
 const { google } = require('googleapis');
 const express = require('express');
 const bodyParser = require('body-parser');
+const cors = require('cors');
 
 const app = express();
 app.use(bodyParser.json());
+
+app.use(cors({
+  credentials:true,
+  origin: [
+    'http://localhost:5173',],
+  })
+);
 
 const SCOPES = [
   'https://www.googleapis.com/auth/calendar',
@@ -166,6 +174,8 @@ app.post('/create-event', async (req, res) => {
     res.status(500).send({ message: 'Error creating event', error: error.message });
   }
 });
+
+
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
