@@ -105,7 +105,7 @@ async function createEventAndSendEmails(req, res) {
     const bodyText = `
   <p>You have been invited to the event <strong>${eventData.title}</strong>.</p>
   <p><strong>Event Details:</strong><br>${eventData.content}</p>
-  <p>Please be join to the meeitng on ${eventData.startTime}</p>
+  <p>Please be join to the meeitng on <strong>${eventData.startTime}</strong></p>
   <p><strong>Google Meet Link:</strong> <a href="${meetUrl}">${meetUrl}</a></p>
   <p><strong>Event Link:</strong> <a href="${eventLink}">${eventLink}</a></p>`;
 
