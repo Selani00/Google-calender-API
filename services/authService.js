@@ -1,6 +1,7 @@
 const fs = require('fs').promises;
 const fsSync = require('fs');
 const path = require('path');
+const process = require('process');
 const { authenticate } = require('@google-cloud/local-auth');
 const { google } = require('googleapis');
 
@@ -56,6 +57,4 @@ async function authorize(userEmail) {
   return client;
 }
 
-module.exports = {
-  authorize
-};
+module.exports = { authorize };

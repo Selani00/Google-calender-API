@@ -1,17 +1,16 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const calendarRoutes = require('./routes/calenderRoutes');
+const eventRoutes = require('./routes/eventRoutes');
 
 const app = express();
 app.use(bodyParser.json());
-
 app.use(cors({
   credentials: true,
   origin: ['http://localhost:5173'],
 }));
 
-app.use('/calendar', calendarRoutes);
+app.use('/api', eventRoutes);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {

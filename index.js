@@ -136,6 +136,8 @@ function createEmail(from, to, subject, message) {
     `From: ${from}`,
     `To: ${to}`,
     `Subject: ${subject}`,
+    `MIME-Version: 1.0`,
+    `Content-Type: text/html; charset=UTF-8`,
     '',
     message,
   ].join('\n');
@@ -163,7 +165,12 @@ app.post('/create-event', async (req, res) => {
 
     // Send email to all participants
     const subject = `Invitation: ${eventData.title}`;
-    const bodyText = `You have been invited to the event "${eventData.title}".\n\nEvent Details:\n${eventData.content}\n\nGoogle Meet Link: ${meetUrl}\n\nEvent Link: ${eventLink}`;
+    const bodyText = `
+  <p>You have been invited to the event <strong>${eventData.title}</strong>.</p>
+  <p><strong>Event Details:</strong><br>${eventData.content}</p>
+  <p>Please be join to the meeitng on <strong>${eventData.startTime}</strong></p>
+  <p><strong>Google Meet Link:</strong> <a href="${meetUrl}">${meetUrl}</a></p>
+  <p><strong>Event Link:</strong> <a href="${eventLink}">${eventLink}</a></p>`;
 
     for (const participant of eventData.participants) {
       await sendEmail(auth, userEmail, participant, subject, bodyText);
